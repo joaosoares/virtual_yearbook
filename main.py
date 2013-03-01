@@ -6,11 +6,19 @@ class Example(wx.Frame):
 		super(Example, self).__init__(*args, **kw)
 		self.InitUI()
 		
-
 	def InitUI(self):
 		pnl = wx.Panel(self)
+		sizer = wx.BoxSizer(wx.VERTICAL)
+
+		logo = wx.StaticBitmap(pnl, bitmap=wx.Bitmap('logo.png'))
+		sizer.Add(logo, 1, wx.EXPAND)
+		title = wx.StaticBitmap(pnl, bitmap=wx.Bitmap('title.png'))
+		sizer.Add(title, 1, wx.EXPAND)
 		startbook = wx.Button(pnl, label='Open the Yearbook!', pos=(20, 30))
 		startbook.Bind(wx.EVT_BUTTON, self.OpenBook)
+		
+		# sizer.AddMany([(logo, 1, wx.EXPAND),(title,1,wx.EXPAND),(startbook,1,wx.EXPAND)])
+
 
 		self.SetSize((600,400))
 		self.SetTitle('Virtual Yearbook')
@@ -19,7 +27,7 @@ class Example(wx.Frame):
 
 	def OpenBook(self, e):
 		Book(None)
-
+ 
 class Book(wx.Frame):
 	def __init__(self, *args, **kw):
 		super(Book, self).__init__(*args, **kw)
