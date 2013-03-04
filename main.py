@@ -7,18 +7,32 @@ class Example(wx.Frame):
 		self.InitUI()
 		
 	def InitUI(self):
+		# Outer panel
 		pnl = wx.Panel(self)
+
+		# Box Sizer to keep all controls
 		sizer = wx.BoxSizer(wx.VERTICAL)
+		# Horizontal centering
+		sizer.AddStretchSpacer( prop=1 )
 
+
+		# CONTROLS
+		# PASB logo
 		logo = wx.StaticBitmap(pnl, bitmap=wx.Bitmap('logo.png'))
-		sizer.Add(logo, 1, wx.EXPAND)
+		sizer.Add(logo, 0, wx.ALIGN_CENTER)
+		# Title
 		title = wx.StaticBitmap(pnl, bitmap=wx.Bitmap('title.png'))
-		sizer.Add(title, 1, wx.EXPAND)
-		startbook = wx.Button(pnl, label='Open the Yearbook!', pos=(20, 30))
+		sizer.Add(title, 0, wx.ALIGN_CENTER)
+		# Button to open yearbook
+		startbook = wx.Button(pnl, wx.ID_NEW, 'Open the Yearbook!', size=((-1,60))) 
 		startbook.Bind(wx.EVT_BUTTON, self.OpenBook)
+		sizer.Add(startbook, 0, wx.ALIGN_CENTER)
 		
-		# sizer.AddMany([(logo, 1, wx.EXPAND),(title,1,wx.EXPAND),(startbook,1,wx.EXPAND)])
+		# Horizontal centering
+		sizer.AddStretchSpacer( prop=1 )
 
+		pnl.SetSizer( sizer )
+		#self.Layout()
 
 		self.SetSize((600,400))
 		self.SetTitle('Virtual Yearbook')
@@ -43,13 +57,13 @@ class Book(wx.Frame):
 
 		toolbar = self.CreateToolBar()
 		quit_icon = wx.ArtProvider.GetBitmap(wx.ART_FILE_SAVE, wx.ART_TOOLBAR, (8,8))
-		qtool = toolbar.AddLabelTool(wx.ID_ANY, 'Quit', quit_icon)
+		qtool = toolbar.AddLabelTool(wx.ID_ANY, 'Quit', wx.Bitmap('logo.png'))
 
 		self.Bind(wx.EVT_MENU, self.OnQuit, fitem)
 
 
 		#self.ShowFullScreen(True)
-		self.SetSize((300,200))
+		self.Maximize()
 		self.Centre()
 		self.Show(True)
 
@@ -59,5 +73,5 @@ class Book(wx.Frame):
 
 if __name__ == '__main__':
 	app = wx.App()
-	Example(None)
+	Book(None)
 	app.MainLoop()
